@@ -10,8 +10,11 @@ module.exports = {
   theme: {
     extend: {
       spacing: {
-        '90': '90vh'
-      }
+        '600': '600px'
+      },
+      inset: {
+        '1/6': '4.166666%'
+      },
     },
   },
   variants: {

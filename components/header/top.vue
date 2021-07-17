@@ -41,7 +41,7 @@
         <!-- dropdown -->
         <ul
           v-if="dropdown"
-          class="absolute right-0 w-40 py-2 bg-white border-gray-400 rounded-md  top-10"
+          class="absolute right-0 w-40 py-2 bg-white border border-gray-400 rounded-md  top-10"
         >
           <li v-for="(link, i) in links" :key="i">
             <nuxt-link class="rounded-md header_link drop_link" :to="link.to">

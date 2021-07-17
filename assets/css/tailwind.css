@@ -30,7 +30,7 @@
         @apply text-white bg-red-900
     }
     .btn_large{
-        @apply p-4 
+        @apply p-4
     }
     .btn_sm{
         @apply p-2 text-sm

@@ -1,5 +1,7 @@
 <template>
-  <div class="h-90 bg-red-50"></div>
+  <div class="w-full h-full">
+    <section-hero />
+  </div>
 </template>
 
 <script>
