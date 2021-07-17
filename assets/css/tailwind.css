@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base{
+    body{
+        @apply bg-white
+    }
+    nav{
+        @apply z-10
+    }
+    nav.scrolled{
+        @apply shadow-2xl bg-white
+    }
+    .container-fluid{
+        @apply w-11/12 mx-auto
+    }
+   
+
+}
+
+@layer components{
+     a{
+        @apply mx-1 py-2
+    }
+    .header_link{
+        @apply uppercase px-1
+    }
+    button{
+        @apply text-white bg-red-900
+    }
+    .btn_large{
+        @apply p-4 
+    }
+    .btn_sm{
+        @apply p-2 text-sm
+    }
+}
