@@ -1,14 +1,24 @@
 <template>
   <nav
     :class="{ scrolled: !view.atTopOfPage }"
-    class="fixed top-0 flex items-center w-full h-20 text-sm font-bold  bg-red-50"
+    class="
+      fixed
+      top-0
+      flex
+      items-center
+      w-full
+      h-20
+      text-sm
+      font-bold
+      bg-red-50
+    "
   >
     <div
-      class="flex items-center justify-between h-16 p-2 px-4 container-fluid"
+      class="flex items-center justify-between h-16 p-2 px-4 container-fluid "
     >
       <justfood-logo class="flex items-center h-12"></justfood-logo>
 
-      <div class="items-center hidden p-1 md:flex">
+      <div class="items-center hidden p-1 md:flex relative">
         <!-- nav links -->
         <nuxt-link
           v-for="(link, i) in links"
@@ -27,13 +37,29 @@
             class="w-4 h-4"
           >
           </component>
-          {{ link.title }}</nuxt-link
-        >
+          {{ link.title }}
+
+          <span
+            v-if="link.title === 'cart'"
+            class="bg-red-600 text-xs text-white flex items-center justify-center rounded-full p-1 h-6 w-6 absolute -top-2 right-1"
+            >10</span
+          >
+        </nuxt-link>
       </div>
       <div class="relative md:hidden">
         <!-- nav dropdown button -->
         <button
-          class="flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-lg  hover:shadow-xl"
+          class="
+            flex
+            items-center
+            justify-center
+            w-10
+            h-10
+            bg-white
+            rounded-full
+            shadow-lg
+            hover:shadow-xl
+          "
           @click="dropdown = !dropdown"
         >
           <icon-down class="w-6 h-6 text-red-900"></icon-down>
@@ -41,7 +67,16 @@
         <!-- dropdown -->
         <ul
           v-if="dropdown"
-          class="absolute right-0 w-40 py-2 bg-white border border-gray-400 rounded-md  top-10"
+          class="
+            absolute
+            right-0
+            w-40
+            py-2
+            bg-white
+            border border-gray-400
+            rounded-md
+            top-10
+          "
         >
           <li v-for="(link, i) in links" :key="i">
             <nuxt-link class="rounded-md header_link drop_link" :to="link.to">
