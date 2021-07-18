@@ -7,8 +7,8 @@
 export default {
   props: {
       slide:{
-          type:String,
-           default:""
+          type:Number,
+           default:0
       },
        section:{
           type:String,

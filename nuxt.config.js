@@ -23,7 +23,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '~/plugins/vue-slick-carousel'
+    '~/plugins/vue-slick-carousel',
+    '~/plugins/vue-tooltip'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -42,6 +43,9 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
   ],
+  env: {
+    api_KEY: process.env.API_KEY
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},

@@ -9,7 +9,7 @@
           grid-cols-1
           transform
           -translate-y-1/2
-          sm:grid-cols-2
+          lg:grid-cols-2
           left-1/6
           top-1/2
           h-96
@@ -20,14 +20,15 @@
             class="
               font-serif
               text-2xl
-              font-extrabold
               leading-10
-              md:font-bold
-              md:text-4xl
+              font-bold
+              md:text-3xl
+              lg:text-4xl
             "
           >
-            Your favourite restaurants <br />
-            delivered.
+            Life Should Taste As Good As
+            <br />
+            Restaurant
           </h1>
           <h4
             class="
@@ -39,12 +40,12 @@
               md:leading-10
             "
           >
-            Enter your address, select food from your favourite restaurant and
+            Just provide your location and search your favourite
             <br class="hidden md:block" />
-            we’ll deliver it to your door.
+            we'll deliver it before your hunger dies.
           </h4>
 
-          <div class="flex items-center mt-10">
+          <div class="flex items-center mt-5">
             <div
               class="
                 flex
@@ -53,14 +54,21 @@
                 bg-white
                 border border-r-0 border-red-900
                 rounded-l-md
+                relative
               "
             >
               <input
+                v-model="searchItem"
                 type="text"
-                placeholder="Enter a location"
+                placeholder="Enter your delivery address"
                 class="w-11/12 p-4 rounded-md focus:outline-none"
+                @input="searchLocation"
               />
               <span
+                v-tooltip.bottom="{
+                  content: 'Use mobile devices for better accuracy',
+                  classes: 'bg-white rounded-md p-2 hidden sm:block',
+                }"
                 class="
                   flex
                   items-center
@@ -69,10 +77,38 @@
                   mx-2
                   cursor-pointer
                 "
+                @click="getLocation"
               >
                 <icon-location class="w-5 h-5 text-red-900"></icon-location>
               </span>
+              <div
+                v-if="locations != '' && searchItem"
+                class="
+                  h-64
+                  absolute
+                  top-14
+                  rounded-lg
+                  w-full
+                  bg-white
+                  border border-gray-300
+                  overflow-y-auto
+                  py-4
+                "
+              >
+                <ul>
+                  <li
+                    v-for="(item, i) in locations"
+                    :key="i"
+                    class="p-2 text-sm hover:bg-gray-300 cursor-pointer"
+                    @click="searchItem = item.display_address"
+                  >
+                    <p class="font-bold text-base">{{ item.address.name }}</p>
+                    <p>{{ item.display_address }}</p>
+                  </li>
+                </ul>
+              </div>
             </div>
+
             <button
               class="
                 w-3/12
@@ -85,7 +121,7 @@
               Find Food
             </button>
           </div>
-          <div class="mt-10">
+          <div class="mt-5">
             <h4 class="text-lg font-semibold">Popular Cities</h4>
             <div class="flex items-center mt-5">
               <button class="btn_sm">Kathmandu</button>
@@ -98,6 +134,59 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      searchItem: '',
+      locations: [],
+    }
+  },
+  methods: {
+    searchLocation() {
+      if (this.searchItem) {
+        setTimeout(() => {
+          this.$axios
+            .get(
+              `https://api.locationiq.com/v1/autocomplete.php?key=${process.env.api_KEY}&countrycodes=np&q=${this.searchItem}`
+            )
+            .then((res) => {
+              console.log(res.data)
+              this.locations = res.data
+            })
+            .catch((err) => {
+              console.log(err.response)
+            })
+        }, 2000)
+      } else {
+        this.locations = []
+      }
+    },
+    getLocation() {
+      if (window.navigator.geolocation) {
+        window.navigator.geolocation.getCurrentPosition(
+          this.successfulLookup,
+          (error) => {
+            alert(error)
+          }
+        )
+      } else {
+        alert('Geolocation not supported by browser')
+      }
+    },
+    successfulLookup(position) {
+      const { latitude, longitude } = position.coords
+      this.$axios
+        .get(
+          `https://us1.locationiq.com/v1/reverse.php?key=${process.env.api_KEY}&lat=${latitude}&lon=${longitude}&format=json`
+        )
+        .then((res) => {
+          console.log(res)
+        })
+    },
+  },
+}
+</script>
 <style scoped>
 .btn_sm {
   margin-right: 1rem;
