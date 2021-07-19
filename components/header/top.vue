@@ -14,9 +14,11 @@
     "
   >
     <div
-      class="flex items-center justify-between h-16 p-2 px-4 container-fluid "
+      class="flex items-center justify-between h-16 p-2 px-4 container-fluid"
     >
-      <justfood-logo class="flex items-center h-12"></justfood-logo>
+      <nuxt-link to="/"
+        ><justfood-logo class="flex items-center h-12"></justfood-logo
+      ></nuxt-link>
 
       <div class="items-center hidden p-1 md:flex relative">
         <!-- nav links -->
@@ -41,7 +43,20 @@
 
           <span
             v-if="link.title === 'cart'"
-            class="bg-red-600 text-xs text-white flex items-center justify-center rounded-full p-1 h-6 w-6 absolute -top-2 right-1"
+            class="
+              bg-red-600
+              text-xs text-white
+              flex
+              items-center
+              justify-center
+              rounded-full
+              p-1
+              h-6
+              w-6
+              absolute
+              -top-2
+              right-1
+            "
             >10</span
           >
         </nuxt-link>

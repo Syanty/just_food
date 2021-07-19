@@ -59,7 +59,7 @@
             >
               <input
                 v-model="searchItem"
-                type="text"
+                type="search"
                 placeholder="Enter your delivery address"
                 class="w-11/12 p-4 rounded-md focus:outline-none"
                 @input="searchLocation"
@@ -99,11 +99,25 @@
                   <li
                     v-for="(item, i) in locations"
                     :key="i"
-                    class="p-2 text-sm hover:bg-gray-300 cursor-pointer"
+                    class="
+                      p-1
+                      text-sm
+                      hover:bg-gray-300
+                      cursor-pointer
+                      flex
+                      items-center
+                    "
                     @click="searchItem = item.display_address"
                   >
-                    <p class="font-bold text-base">{{ item.address.name }}</p>
-                    <p>{{ item.display_address }}</p>
+                    <span
+                      ><icon-location
+                        class="h-6 w-6 text-gray-400"
+                      ></icon-location
+                    ></span>
+                    <div>
+                      <p class="font-bold text-base">{{ item.address.name }}</p>
+                      <p>{{ item.display_address }}</p>
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -166,12 +180,10 @@ export default {
       if (window.navigator.geolocation) {
         window.navigator.geolocation.getCurrentPosition(
           this.successfulLookup,
-          (error) => {
-            alert(error)
-          }
+          console.log()
         )
       } else {
-        alert('Geolocation not supported by browser')
+        alert('Geolocation not supported by your browser')
       }
     },
     successfulLookup(position) {
