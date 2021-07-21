@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full">
+  <div class="w-full">
     <section-hero />
     <section-special-offer></section-special-offer>
     <section-featured-restaurant></section-featured-restaurant>

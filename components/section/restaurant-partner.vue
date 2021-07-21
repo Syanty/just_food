@@ -1,7 +1,7 @@
 <template>
   <div class="grid grid-cols-1 md:grid-cols-2 h-96">
     <div class="hidden md:block"></div>
-    <div>
+    <div class="my-auto">
       <partner-content>
         <h1 slot="title">Become a Restaurant Partner</h1>
         <p slot="content">

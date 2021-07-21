@@ -1,10 +1,10 @@
 <template>
-  <div class="h-600 download_section grid grid-cols-1 sm:grid-cols-3 gap-4  p-6">
+  <div class="h-600 download_section grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4  p-6">
     <div class="h-4/5 my-auto bg-red-900 rounded-lg"></div>
 
     <div class="col-span-2 relative">
       <div class="absolute top-1/2 left-5 transform -translate-y-1/2">
-        <h1 class="text-3xl font-extrabold">Restaurants in your <br> pocket</h1>
+        <h1 class="text-2xl sm:text-3xl font-extrabold">Restaurants in your <br> pocket</h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, quisquam rem, facilis modi fuga iste tenetur placeat deleniti beatae hic illum est. Inventore, laborum nulla tempora ad aut ut neque!</p>
         <div class="mt-5">
            <button class="btn_large">Apple Store</button>

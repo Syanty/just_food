@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-red-200">
+  <div class="bg-red-200 w-full">
     <div
       class="
         p-6

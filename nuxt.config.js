@@ -42,6 +42,8 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    //auth nuxt
+    '@nuxtjs/auth-next'
   ],
   env: {
     api_KEY: process.env.API_KEY
@@ -50,6 +52,26 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     baseURL: process.env.BASE_URL
+  },
+
+  //authentication
+  auth: {
+    redirect: {
+      login: '/',
+      logout: '/account/signin',
+      callback: '/',
+      home: '/'
+    },
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/auth/user/login/', method: 'post', propertyName: 'data.token' },
+          user: false,
+          logout: false
+        },
+      },
+
+    }
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

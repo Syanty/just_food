@@ -29,7 +29,7 @@ export default {
     return {
       settings: {
         dots: false,
-        infinite: true,
+        infinite: false,
         speed: 500,
         autoplay: true,
         slidesToShow: 6,
@@ -37,7 +37,7 @@ export default {
         initialSlide: 0,
         autoplaySpeed: 3000,
         cssEase: 'linear',
-        arrows:false,
+        arrows: false,
         responsive: [
           {
             breakpoint: 1024,
@@ -57,7 +57,6 @@ export default {
             breakpoint: 480,
             settings: {
               slidesToShow: 1,
-             
             },
           },
         ],
