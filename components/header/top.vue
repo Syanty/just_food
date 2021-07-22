@@ -35,19 +35,7 @@ export default {
       },
     }
   },
-  async fetch() {
-    if (this.isAuthenticated) {
-      await this.$axios
-        .$get('/auth/user/profile/', {
-          params: {
-            secret_token: this.$auth.strategy.token.get().slice(7),
-          },
-        })
-        .then((res) => {
-          this.$auth.setUser(res.user)
-        })
-    }
-  },
+
   beforeMount() {
     window.addEventListener('scroll', this.handleScroll)
   },
