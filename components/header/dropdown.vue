@@ -94,7 +94,7 @@
           >
         </nuxt-link>
       </li>
-      <li class="p-2 rounded-md cursor-pointer flex items-center" @click="logout">
+      <li v-if="isAuthenticated" class="p-2 rounded-md cursor-pointer flex items-center" @click="logout">
         <icon-logout class="h-5 w-5 transform rotate-180"></icon-logout> Logout
       </li>
     </ul>

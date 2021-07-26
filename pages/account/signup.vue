@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-red-50 py-16">
+  <div class="bg-red-50 h-screen py-16">
     <form
       method="post"
       @submit.prevent="registerUser"
@@ -19,6 +19,9 @@
       <h1 class="uppercase text-center text-3xl font-sans font-bold mb-4">
         signup
       </h1>
+      <p class="p-2 bg-red-100 mb-5 rounded-md text-center" v-if="getErrorMsg">
+        {{ getErrorMsg }}
+      </p>
       <div class="grid grid-cols-2 gap-4 mb-4">
         <div class="flex flex-col">
           <div class="flex items-center">
@@ -97,7 +100,7 @@
           Signup
         </button>
       </div>
-       <div class="text-center mt-5">
+      <div class="text-center mt-5">
         Already have an account?
         <nuxt-link to="/account/signin" class="text-red-500">signin</nuxt-link>
       </div>
@@ -105,6 +108,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
@@ -120,21 +124,26 @@ export default {
     }
   },
   methods: {
-   async registerUser() {
+    async registerUser() {
+      this.$store.commit('helper/setError', null)
       if (this.validate_form) {
         await this.$axios
           .post('/auth/user/signup/', this.user)
           .then((res) => {
             this.$router.replace('/account/signin')
-            this.$store.commit("helper/setSuccess", res.data.message)
+            this.$store.commit('helper/setSuccess', res.data.message)
           })
           .catch((err) => {
-            this.validation_errors = err.response.data  
+            if (err.response.data.message) {
+              this.$store.commit('helper/setError', err.response.data.message)
+            }
+            this.validation_errors = err.response.data
           })
       }
     },
   },
   computed: {
+    ...mapGetters('helper', ['getSuccessMsg', 'getErrorMsg']),
     user_password() {
       return this.user.password
     },

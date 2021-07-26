@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-red-50 py-20">
+  <div class="bg-red-50 h-screen py-20">
     <form
       class="
         w-11/12
@@ -67,19 +67,22 @@
           border-b border-gray-300
         "
       >
-        <nuxt-link to="/forgot-password" class="text-red-500 hover:underline"
-          >Forgot Password?</nuxt-link
+        <div
+          class="text-red-500 cursor-pointer hover:underline"
+          @click="openResetModal"
         >
+          Forgot password?
+        </div>
         or
         <div class="block p-3 border-b border-gray-300">
           <div
             class="text-red-500 cursor-pointer hover:underline"
-            @click="resendModal = true"
+            @click="openResendModal"
           >
             Didn't get a link? Resend
           </div>
           <div
-            v-if="resendModal"
+            v-if="modal"
             class="
               h-screen
               w-screen
@@ -117,11 +120,24 @@
                     justify-between
                   "
                 >
-                  Resend Confirmation Link
-                  <div @click="resendModal = false" class="cursor-pointer">
+                  <span v-if="resetMode">Forgot Password</span>
+                  <span v-else>Resend Confirmation Link</span>
+                  <div @click="closeModal" class="cursor-pointer">
                     <icon-close class="h-5 w-5"></icon-close>
                   </div>
                 </h1>
+                <p
+                  class="p-2 bg-green-100 mb-5 rounded-md text-center"
+                  v-if="getSuccessMsg"
+                >
+                  {{ getSuccessMsg }}
+                </p>
+                <p
+                  class="p-2 bg-red-100 mb-5 rounded-md text-center"
+                  v-else-if="getErrorMsg"
+                >
+                  {{ getErrorMsg }}
+                </p>
                 <div class="p-4 flex items-center justify-between">
                   <input-email
                     class="w-8/12"
@@ -129,7 +145,11 @@
                     @updatedemail="email = $event"
                   ></input-email>
                   <button
-                    @click="resendLink"
+                    v-on="
+                      resetMode
+                        ? { click: resetPassword }
+                        : { click: resendLink }
+                    "
                     class="w-4/12 p-2 ml-2 rounded-md min-w-max"
                     :class="
                       status
@@ -137,7 +157,8 @@
                         : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                     "
                   >
-                    Resend Link
+                    <span v-if="resetMode">Reset Password</span>
+                    <span v-else>Resend Link</span>
                   </button>
                 </div>
               </div>
@@ -161,7 +182,8 @@ export default {
       isVisible: false,
       email: '',
       password: '',
-      resendModal: false,
+      modal: false,
+      resetMode: false,
     }
   },
   computed: {
@@ -190,6 +212,7 @@ export default {
   methods: {
     async onLogin() {
       if (this.isValidForm) {
+        this.$store.commit('helper/setSuccess', null)
         await this.$auth
           .loginWith('local', {
             data: {
@@ -198,7 +221,7 @@ export default {
             },
           })
           .then((res) => {
-            this.$router.replace('/')
+           console.log(res);
           })
           .catch((err) => {
             if (err.response.status === 500) {
@@ -209,7 +232,29 @@ export default {
           })
       }
     },
+
+    openResendModal() {
+      this.$store.commit('helper/setSuccess', null)
+      this.$store.commit('helper/setError', null)
+      this.modal = true
+    },
+    openResetModal() {
+      this.$store.commit('helper/setSuccess', null)
+      this.$store.commit('helper/setError', null)
+      this.modal = true
+      this.resetMode = true
+    },
+    closeModal() {
+      this.modal = false
+      if (this.resetMode) {
+        this.resetMode = false
+      }
+      this.$store.commit('helper/setSuccess', null)
+      this.$store.commit('helper/setError', null)
+    },
     resendLink() {
+      this.$store.commit('helper/setSuccess', null)
+      this.$store.commit('helper/setError', null)
       if (this.status) {
         this.$axios
           .get(`/auth/user/${this.email}/resend/confirmation/`)
@@ -217,17 +262,33 @@ export default {
             this.$store.commit('helper/setSuccess', res.data.message)
           })
           .catch((err) => {
-            if (err.response.status !== undefined) {
-              if (err.response.status === 500) {
-                console.log(err.response)
-              } else {
-                this.$store.commit('helper/setError', err.response.data.message)
-              }
+            if (err.response.status === 500) {
+              console.log(err.response)
+            } else {
+              this.$store.commit('helper/setError', err.response.data.message)
             }
           })
       }
-      this.resendModal = false
-      this.email = ""
+      this.email = ''
+    },
+    resetPassword() {
+      this.$store.commit('helper/setSuccess', null)
+      this.$store.commit('helper/setError', null)
+      if (this.status) {
+        this.$axios
+          .get(`/auth/user/forgot-password/${this.email}/reset-password`)
+          .then((res) => {
+            this.$store.commit('helper/setSuccess', res.data.message)
+          })
+          .catch((err) => {
+            if (err.response.status === 500) {
+              console.log(err.response)
+            } else {
+              this.$store.commit('helper/setError', err.response.data.message)
+            }
+          })
+      }
+      this.email = ''
     },
   },
 }

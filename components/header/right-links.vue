@@ -103,10 +103,11 @@ export default {
       profileDropdown: false,
     }
   },
+
   computed: {
     ...mapGetters(['isAuthenticated', 'loggedInUser']),
   },
-   methods: {
+  methods: {
     async logout() {
       await this.$auth.logout()
       this.$store.commit('helper/setSuccess', 'User is logged out')
