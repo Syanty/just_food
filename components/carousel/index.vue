@@ -6,14 +6,8 @@
       :class="section === 'offer' ? 'bg-red-900' : ''"
       class="h-40 p-4"
     >
-      <carousel-slide :slide="i" :section="section"></carousel-slide>
+      <carousel-slide :isFood="isFood" :slide="i" :section="section"></carousel-slide>
     </div>
-    <template #prevArrow="arrowOption">
-      <div>{{ arrowOption.currentSlide }}/{{ arrowOption.slideCount }}</div>
-    </template>
-    <template #nextArrow="arrowOption">
-      <div>{{ arrowOption.currentSlide }}/{{ arrowOption.slideCount }}</div>
-    </template>
   </VueSlickCarousel>
 </template>
 <script>
@@ -22,9 +16,7 @@ import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 export default {
   components: { VueSlickCarousel },
-  props: {
-    section: { type: String, default: '' },
-  },
+  props: ['section','isFood'],
   data() {
     return {
       settings: {
@@ -65,9 +57,3 @@ export default {
   },
 }
 </script>
-<style scoped>
-.slick-prev:before,
-.slick-next:before {
-  color: red !important;
-}
-</style>

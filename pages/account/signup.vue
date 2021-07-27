@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-red-50 h-screen py-16">
+  <div class="bg-red-50 py-20">
     <form
       method="post"
       @submit.prevent="registerUser"

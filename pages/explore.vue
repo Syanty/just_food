@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid min-h-screen mb-10 pt-5">
+  <div class="container-fluid pt-5">
     <div class="w-11/12 sm:w-9/12 md:w-1/2 text-center mx-auto">
       <h4 class="text-xl font-semibold">Explore</h4>
       <div

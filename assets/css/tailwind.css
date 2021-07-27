@@ -29,6 +29,15 @@
     button{
         @apply text-white bg-red-900
     }
+    .btn_rounded{
+        @apply text-red-900 rounded-full bg-white border-2 border-red-900 hover:shadow-2xl text-sm p-2
+    }
+    .btn_outlined{
+        @apply text-red-900 bg-white border-2 border-red-900 hover:shadow-2xl p-2 text-sm
+    }
+    .btn_active{
+        @apply bg-red-900 text-white p-2
+    }
     .btn_large{
         @apply p-4
     }

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-red-50 h-screen py-20">
+  <div class="bg-red-50 py-20">
     <form
       class="
         w-11/12

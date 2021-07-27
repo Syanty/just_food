@@ -52,18 +52,7 @@
       <li>
         <nuxt-link
           v-if="isAuthenticated"
-          class="
-            header_link
-            px-4
-            font-semibold
-            text-red-900
-            bg-white
-            border-2 border-red-900
-            rounded-full
-            shadow-md
-            header_link
-            hover:shadow-2xl
-          "
+          class="header_link px-4 font-semibold btn_rounded hover:shadow-none"
           to="/account/profile"
         >
           <icon-user-circle class="w-4 h-4"></icon-user-circle>
@@ -94,7 +83,11 @@
           >
         </nuxt-link>
       </li>
-      <li v-if="isAuthenticated" class="p-2 rounded-md cursor-pointer flex items-center" @click="logout">
+      <li
+        v-if="isAuthenticated"
+        class="p-2 rounded-md cursor-pointer flex items-center"
+        @click="logout"
+      >
         <icon-logout class="h-5 w-5 transform rotate-180"></icon-logout> Logout
       </li>
     </ul>
@@ -124,8 +117,5 @@ export default {
 .header_link {
   display: flex;
   align-items: center;
-}
-li:hover {
-  background-color: rgba(209, 213, 219, var(--tw-bg-opacity));
 }
 </style>

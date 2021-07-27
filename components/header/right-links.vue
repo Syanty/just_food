@@ -40,13 +40,7 @@
         p-3
         cursor-pointer
         font-semibold
-        text-red-900
-        bg-white
-        border-2 border-red-900
-        rounded-full
-        shadow-md
-        header_link
-        hover:shadow-2xl
+        btn_rounded
       "
       @click="profileDropdown = !profileDropdown"
     >
@@ -60,10 +54,6 @@
         absolute
         right-0
         w-40
-        p-2
-        bg-white
-        border border-gray-400
-        rounded-md
         top-14
       "
     >

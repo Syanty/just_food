@@ -11,25 +11,4 @@
   </div>
 </template>
 
-<script>
-import { mapGetters } from 'vuex'
-export default {
-  async fetch() {
-    if (this.isAuthenticated) {
-      const user = await this.$axios
-        .$get('/auth/user/profile/', {
-          params: {
-            secret_token: this.$auth.strategy.token.get().slice(7),
-          },
-        })
-        .then((res) => {
-          return res.user
-        })
-      this.$auth.setUser(user)
-    }
-  },
-  computed: {
-    ...mapGetters(['isAuthenticated']),
-  },
-}
-</script>
+
